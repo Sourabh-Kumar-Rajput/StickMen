@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "description": "A stickman archery combat game (HTML5 Canvas). Wrappable as PWA, Android (Capacitor), or desktop (Tauri).",
   "private": true,
+  "license": "MIT",
+  "author": "Sourabh Kumar Rajput",
+  "homepage": "https://sourabh-kumar-rajput.github.io/StickMen/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sourabh-Kumar-Rajput/StickMen.git"
+  },
   "scripts": {
     "serve": "npx http-server -p 8000 -c-1 .",
+    "test": "node test/sim.js && node test/headless.js",
     "cap:add": "cap add android",
     "cap:sync": "cap sync",
     "cap:open": "cap open android",

@@ -7,7 +7,9 @@ with plain HTML5 Canvas + vanilla JavaScript — **no build step, no dependencie
 fully offline**. The same web build ships as an installable **PWA**, an **Android
 app** (Capacitor), and a **desktop app** (Electron / Tauri).
 
-![Stickman Archers — two archers dueling with recurve bows](media/screenshot.png)
+![Stickman Archers — gameplay: draw, loose, and a ragdoll hit](media/gameplay.gif)
+
+<sub>↑ rendered straight from the game's own drawing code. Static shot: [`media/screenshot.png`](media/screenshot.png).</sub>
 
 ## Play right now
 
@@ -140,3 +142,8 @@ npm run dist            # optional: build a Windows installer (electron-builder)
 - Weapons/economy: `js/weapons.js` (`AMMO` damage/price/element, `BOWS`, `SHIELD`),
   starter coins + prices feed the shop. Status durations live in `Archer.applyStatus`.
 - Add campaign levels: append to the `CAMPAIGN` array in `js/game.js`.
+
+## License
+
+[MIT](LICENSE) © Sourabh Kumar Rajput. *The Archers 2* is a trademark of its
+respective owner; this is an independent fan-made game inspired by it.
