@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Sourabh-Kumar-Rajput/StickMen/actions/workflows/ci.yml/badge.svg)](https://github.com/Sourabh-Kumar-Rajput/StickMen/actions/workflows/ci.yml)
 
-A browser-based stickman archery combat game inspired by *The Archers 2*. Built
+A browser-based stickman archery combat game. Built
 with plain HTML5 Canvas + vanilla JavaScript — **no build step, no dependencies,
 fully offline**. The same web build ships as an installable **PWA**, an **Android
 app** (Capacitor), and a **desktop app** (Electron / Tauri).
