@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Stickman Archers</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#cfe8f5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- Main Menu -->
+<div id="menu" class="screen">
+  <h1>STICKMAN <span>ARCHERS</span></h1>
+  <p class="tag">Draw your bow. Take the shot.</p>
+  <div class="buttons">
+    <button data-mode="duel">&#9876; Duel</button>
+    <button data-mode="survival">&#128737; Survival</button>
+    <button data-mode="campaign">&#127984; Campaign</button>
+    <button id="shopBtn">&#9876; Armory (Shop)</button>
+    <button id="playCustomBtn" class="ghost">&#128296; Custom Levels</button>
+    <button id="editorBtn" class="ghost">&#9998; Level Editor</button>
+    <button id="howtoBtn" class="ghost">How to play</button>
+  </div>
+  <div id="bests" class="bests"></div>
+  <p class="credit">An HTML5 Canvas game</p>
+</div>
+
+<!-- In-game HUD -->
+<div id="hud" class="hidden">
+  <div class="hud-top">
+    <div class="bar-wrap">
+      <div class="bar-label">YOU</div>
+      <div class="bar"><div id="playerHp" class="fill"></div></div>
+    </div>
+    <div id="stats"></div>
+    <button id="muteBtn" class="icon-btn" title="Mute">&#128266;</button>
+    <button id="pauseBtn" class="icon-btn" title="Pause">&#10074;&#10074;</button>
+  </div>
+  <div class="hud-bottom">
+    <div id="weaponBar"></div>
+    <button id="shieldBtn" class="shield-btn" title="Shield">&#128737;</button>
+  </div>
+</div>
+
+<!-- Overlay: game over / win / pause / level complete -->
+<div id="overlay" class="screen hidden">
+  <div id="overlayBadge" class="badge hidden"></div>
+  <h2 id="overlayTitle">Title</h2>
+  <p id="overlayMsg"></p>
+  <div class="buttons" id="overlayButtons"></div>
+</div>
+
+<!-- How to play -->
+<div id="howto" class="screen hidden">
+  <h2>How to play</h2>
+  <ul class="howto-list">
+    <li><b>Aim:</b> Press and hold anywhere, then drag <i>backward</i> &mdash; like pulling a bowstring.</li>
+    <li><b>Charge:</b> Keep holding to charge the shot &mdash; the bow flexes and the arrow glows. A fuller charge hits much harder.</li>
+    <li><b>Power:</b> The further you pull, the harder the shot flies. Release to loose.</li>
+    <li><b>Armory:</b> Spend coins (earned from kills) on stronger <b>bows</b> and elemental <b>arrows</b> &mdash; fire, ice, poison, air, bomb, black hole.</li>
+    <li><b>Switch ammo:</b> Tap the bottom bar (or number keys). Tap &#128737; (or Q) to raise your shield.</li>
+    <li><b>Headshots</b> are instant kills. Mind <b>gravity</b> &mdash; arrows arc, so lead moving targets.</li>
+    <li>Beware the <b>boss</b>: watch its telegraphed charge, volley, and summon attacks.</li>
+  </ul>
+  <div class="buttons"><button id="howtoClose">Got it</button></div>
+</div>
+
+<!-- Custom level picker -->
+<div id="customPick" class="screen hidden">
+  <h2>Custom Levels</h2>
+  <div id="customList" class="custom-list"></div>
+  <div class="buttons">
+    <button id="customNew">&#43; New Level</button>
+    <button id="customBack" class="ghost">Back</button>
+  </div>
+</div>
+
+<!-- Armory / shop -->
+<div id="shop" class="screen hidden">
+  <h2>Armory</h2>
+  <div class="shop-coins">&#129689; <span id="shopCoins">0</span></div>
+  <div class="shop-tabs">
+    <button id="shopTabBows" class="active">Bows</button>
+    <button id="shopTabArrows">Arrows</button>
+  </div>
+  <div id="shopList" class="shop-list"></div>
+  <div class="buttons"><button id="shopBack" class="ghost">Back</button></div>
+</div>
+
+<!-- Level editor -->
+<div id="editor" class="screen hidden editor">
+  <div class="editor-bar">
+    <input id="editorName" maxlength="24" placeholder="Level name">
+    <div id="editorPalette"></div>
+    <span class="spacer"></span>
+    <button id="editorClear" class="ghost">Clear</button>
+    <button id="editorSave">Save</button>
+    <button id="editorTest">Test</button>
+    <button id="editorBack" class="ghost">Back</button>
+  </div>
+  <div id="editorHint" class="editor-hint">Tap the ground to place enemies &middot; Tap a marker to remove it</div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/ragdoll.js"></script>
+<script src="js/stickman.js"></script>
+<script src="js/weapons.js"></script>
+<script src="js/arrow.js"></script>
+<script src="js/archer.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/game.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Service worker: only on http(s)/localhost. No-op on file:// (double-click
+  // still works, just without offline caching). Wrappers bundle assets anyway.
+  (function () {
+    var p = location.protocol;
+    if ("serviceWorker" in navigator && (p === "https:" || p === "http:")) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  })();
+</script>
+</body>
+</html>

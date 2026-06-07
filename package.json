@@ -1,0 +1,22 @@
+{
+  "name": "stickman-archers",
+  "version": "1.0.0",
+  "description": "A stickman archery combat game (HTML5 Canvas). Wrappable as PWA, Android (Capacitor), or desktop (Tauri).",
+  "private": true,
+  "scripts": {
+    "serve": "npx http-server -p 8000 -c-1 .",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync",
+    "cap:open": "cap open android",
+    "cap:run": "cap run android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6",
+    "@capacitor/android": "^6",
+    "@capacitor/app": "^6",
+    "@capacitor/status-bar": "^6"
+  }
+}

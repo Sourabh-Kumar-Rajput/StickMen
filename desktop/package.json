@@ -1,0 +1,21 @@
+{
+  "name": "stickman-archers-desktop",
+  "version": "1.0.0",
+  "description": "Electron desktop wrapper for Stickman Archers.",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31",
+    "electron-builder": "^25"
+  },
+  "build": {
+    "appId": "com.stickman.archers",
+    "productName": "Stickman Archers",
+    "files": ["main.js", "../index.html", "../css/**", "../js/**", "../icons/**", "../manifest.json"],
+    "win": { "target": "nsis" }
+  }
+}

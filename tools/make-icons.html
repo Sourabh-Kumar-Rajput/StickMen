@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stickman Archers — Icon Maker</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #1c1c22; color: #fff; text-align: center; padding: 30px; }
+  canvas { background: #cfe8f5; border-radius: 12px; margin: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+  button { font: inherit; font-weight: 800; padding: 12px 22px; border: none; border-radius: 12px; background: #c2433f; color: #fff; cursor: pointer; margin: 6px; }
+  p { opacity: .75; max-width: 560px; margin: 10px auto; }
+</style>
+</head>
+<body>
+  <h1>Icon Maker</h1>
+  <p>Draws the same bow-and-arrow emblem the game ships with. Click a button to download, then drop the PNGs into <code>icons/</code>. (If a download is blocked on file://, serve via a local server.)</p>
+  <div>
+    <canvas id="c192" width="192" height="192"></canvas>
+    <canvas id="c512" width="512" height="512"></canvas>
+  </div>
+  <div>
+    <button onclick="save(192)">Download icon-192.png</button>
+    <button onclick="save(512)">Download icon-512.png</button>
+  </div>
+<script>
+function emblem(ctx, S) {
+  const k = S / 512, cx = S * 0.5, cy = S * 0.5, R = S * 0.30;
+  ctx.fillStyle = "#cfe8f5"; ctx.fillRect(0, 0, S, S);
+  ctx.lineCap = "round"; ctx.lineJoin = "round";
+  // bow limb
+  ctx.strokeStyle = "#6b4f2a"; ctx.lineWidth = 18 * k;
+  ctx.beginPath(); ctx.arc(cx + S * 0.05, cy, R, Math.PI * 0.62, Math.PI * 1.38); ctx.stroke();
+  // string
+  const tx = cx + S * 0.05 + Math.cos(Math.PI * 0.62) * R, ty = cy + Math.sin(Math.PI * 0.62) * R;
+  const bx = cx + S * 0.05 + Math.cos(Math.PI * 1.38) * R, by = cy + Math.sin(Math.PI * 1.38) * R;
+  ctx.strokeStyle = "#2b2b30"; ctx.lineWidth = 5 * k; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(bx, by); ctx.stroke();
+  // arrow shaft
+  const ax0 = cx - R * 0.55, ax1 = cx + R * 1.05;
+  ctx.strokeStyle = "#c2433f"; ctx.lineWidth = 10 * k; ctx.beginPath(); ctx.moveTo(ax0, cy); ctx.lineTo(ax1, cy); ctx.stroke();
+  // head
+  ctx.strokeStyle = "#1c1c22"; ctx.lineWidth = 8 * k; ctx.fillStyle = "#1c1c22";
+  ctx.beginPath(); ctx.moveTo(ax1 + 6 * k, cy); ctx.lineTo(ax1 - 20 * k, cy - 16 * k); ctx.lineTo(ax1 - 20 * k, cy + 16 * k); ctx.closePath(); ctx.fill();
+  // fletching
+  ctx.strokeStyle = "#2f6fd0"; ctx.lineWidth = 6 * k;
+  ctx.beginPath(); ctx.moveTo(ax0, cy); ctx.lineTo(ax0 + 16 * k, cy - 12 * k); ctx.moveTo(ax0, cy); ctx.lineTo(ax0 + 16 * k, cy + 12 * k); ctx.stroke();
+}
+emblem(document.getElementById("c192").getContext("2d"), 192);
+emblem(document.getElementById("c512").getContext("2d"), 512);
+function save(size) {
+  document.getElementById("c" + size).toBlob(function (b) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = "icon-" + size + ".png"; a.click();
+  }, "image/png");
+}
+</script>
+</body>
+</html>
