@@ -1,13 +1,21 @@
 # Stickman Archers
 
+[![CI](https://github.com/Sourabh-Kumar-Rajput/StickMen/actions/workflows/ci.yml/badge.svg)](https://github.com/Sourabh-Kumar-Rajput/StickMen/actions/workflows/ci.yml)
+
 A browser-based stickman archery combat game inspired by *The Archers 2*. Built
 with plain HTML5 Canvas + vanilla JavaScript — **no build step, no dependencies,
 fully offline**. The same web build ships as an installable **PWA**, an **Android
 app** (Capacitor), and a **desktop app** (Electron / Tauri).
 
+![Stickman Archers — two archers dueling with recurve bows](media/screenshot.png)
+
 ## Play right now
 
-**Double-click `index.html`** (or drag it into any modern browser). Works offline.
+**[▶ Play in your browser](https://sourabh-kumar-rajput.github.io/StickMen/)** — hosted
+on GitHub Pages (enable it once via repo **Settings → Pages → Source: GitHub Actions**).
+
+Or run it locally: **double-click `index.html`** (or drag it into any modern
+browser). Works offline.
 
 ## Controls
 
@@ -37,7 +45,8 @@ Headshots are instant kills; arrows arc under gravity, so lead moving targets.
   shielded (frontal block), and **The Warlord** boss with telegraphed volley /
   charge / summon attacks across three HP phases.
 - **Feel:** fixed 1280×720 virtual resolution letterboxed to any screen, unified
-  mouse + touch input, procedural Web-Audio SFX + music, shaded vector art,
+  mouse + touch input, procedural Web-Audio SFX + music, flat solid-black
+  *The Archers 2*-style figures with a deep recurve bow,
   themed biomes (grassland / desert / snow / dungeon) with parallax + weather,
   blood / dust / explosion / glow particles, ragdoll deaths, screen shake.
 - **Persistence:** localStorage high scores (survival wave + score, campaign
@@ -51,7 +60,7 @@ Headshots are instant kills; arrows arc under gravity, so lead moving targets.
 | `index.html`, `css/style.css` | Shell, menus, HUD, editor/custom UI, PWA tags, SW registration |
 | `js/utils.js`    | Math/draw helpers, the `VIEW` letterbox transform, `shade()` |
 | `js/ragdoll.js`  | Verlet-physics ragdoll |
-| `js/stickman.js` | Pose math (scalable), shaded drawing, hitboxes |
+| `js/stickman.js` | Pose math (scalable), flat solid-black figure drawing + recurve bow, hitboxes |
 | `js/weapons.js`  | `AMMO` + `BOWS` + `ELEM_COLOR` + charge/shield tuning |
 | `js/arrow.js`    | Projectile (arrow/knife/explosive/bomb, elemental, charged) physics + render |
 | `js/archer.js`   | Combatant: health/damage, status effects, per-type AI, ballistic aim, boss AI |
@@ -70,6 +79,8 @@ No browser needed — two headless harnesses:
 node test/sim.js        # entity logic: ballistics, collision, damage, ragdoll, weapon kinds
 node test/headless.js   # boots the FULL game under a stubbed DOM, drives every mode + editor + boss
 ```
+
+Both run automatically on every push/PR via GitHub Actions (`.github/workflows/ci.yml`).
 
 ## Build as an app
 
